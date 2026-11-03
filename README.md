@@ -17,7 +17,7 @@
 - Structured Outputs через OpenAI Responses API;
 - обработка неверного JSON, пустых полей, отказа модели, таймаута, лимитов и HTTP-ошибок;
 - атомарная запись результата: существующий файл не портится при сбое;
-- 45 автоматических тестов.
+- 46 автоматических тестов, включая проверку сохранённых live-snapshots.
 
 ## Быстрый старт
 
@@ -92,7 +92,7 @@ uv run product-copywriter product.json --model gpt-6-luna
 - [`examples/output/products.md`](examples/output/products.md) — результат для копирования;
 - [`examples/output/products.json`](examples/output/products.json) — структурированный результат.
 
-Эталонный snapshot проходит те же Pydantic-модели и grounding-проверку, что и обычный ответ API. Для live-перегенерации нужен OpenAI API-ключ с доступной квотой.
+Текущие snapshots в `examples/output/` получены реальными запросами к OpenAI Responses API 3 ноября 2026 года. После получения они прошли те же Pydantic-модели и grounding-проверку, что используются сервисом. Метрики и сценарии проверки зафиксированы в [`docs/LIVE_TESTS.md`](docs/LIVE_TESTS.md). Для повторной live-генерации нужен OpenAI API-ключ с доступной квотой.
 
 ## Как предотвращаются выдуманные характеристики
 
@@ -126,7 +126,7 @@ uv run pytest -q
 uv run ruff check .
 ```
 
-Тесты покрывают входной JSON, границы SEO-полей, промпт, grounding, форму Responses-запроса, ошибки API, renderers, CLI и атомарную запись.
+Тесты покрывают входной JSON, границы SEO-полей, промпт, grounding, форму Responses-запроса, ошибки API, renderers, CLI, атомарную запись и валидность сохранённых live-примеров.
 
 ## Принятые решения
 
