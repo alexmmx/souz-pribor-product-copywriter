@@ -76,4 +76,3 @@ def test_load_products_rejects_an_empty_list(tmp_path):
 
     with pytest.raises(InputValidationError, match="не содержит товаров"):
         load_products(path)
-

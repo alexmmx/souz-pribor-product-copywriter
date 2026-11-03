@@ -59,3 +59,14 @@ def test_generated_copy_rejects_out_of_contract_values(field, value):
 def test_product_input_rejects_unknown_fields():
     with pytest.raises(ValidationError):
         ProductInput(name="ПМ01", unsupported="value")
+
+
+def test_generated_copy_rejects_duplicate_search_queries_after_normalization():
+    with pytest.raises(ValidationError):
+        valid_copy(
+            search_queries=[
+                "Промышленный прибор купить",
+                " промышленный ПРИБОР купить ",
+                "другой запрос",
+            ]
+        )

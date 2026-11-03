@@ -23,4 +23,3 @@ class ProviderError(ProductCopywriterError):
 
 class GroundingError(ProductCopywriterError):
     """Generated copy contains a value that is not grounded in the input."""
-

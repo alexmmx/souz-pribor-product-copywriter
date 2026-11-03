@@ -121,6 +121,20 @@ def test_grounding_rejects_new_numeric_technical_value():
         validate_grounding(product, copy)
 
 
+def test_grounding_rejects_truncated_alphanumeric_value():
+    product = ProductInput(
+        name="Модуль",
+        specs={"Интерфейс": "RS-485"},
+        description="Модуль с последовательным интерфейсом.",
+    )
+    copy = make_copy(
+        seo_description=make_description("Интерфейс RS-4."),
+    )
+
+    with pytest.raises(GroundingError, match="rs-4"):
+        validate_grounding(product, copy)
+
+
 def test_grounding_allows_generic_b2b_marker():
     product = ProductInput(name="Прибор", description="Промышленный прибор.")
     copy = make_copy(

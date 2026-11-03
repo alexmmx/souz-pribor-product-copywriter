@@ -34,4 +34,3 @@ def test_build_input_message_contains_exact_source_json():
     assert expected_json in message
     lowered = message.lower()
     assert "единственн" in lowered and "источник" in lowered and "фактов" in lowered
-

@@ -41,4 +41,3 @@ def build_input_message(product: ProductInput) -> str:
         "Ниже входной JSON. Он является единственным источником фактов для карточки.\n\n"
         f"{source_json}"
     )
-

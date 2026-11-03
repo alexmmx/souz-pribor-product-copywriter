@@ -83,6 +83,6 @@ def _is_grounded_token(token: str, source_tokens: set[str]) -> bool:
         return True
     if token in source_tokens:
         return True
-    if any(character.isalpha() for character in token) and len(token) >= 4:
-        return any(token in source_token for source_token in source_tokens)
+    if token[-1:].isdigit() and any(character.isalpha() for character in token):
+        return any(source_token.startswith(f"{token}-") for source_token in source_tokens)
     return False

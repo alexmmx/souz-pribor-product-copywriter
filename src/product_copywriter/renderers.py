@@ -68,4 +68,3 @@ def render_markdown(cards: list[ProductCard]) -> str:
             lines.append("Нет.")
         sections.append("\n".join(lines))
     return "\n\n---\n\n".join(sections) + "\n"
-

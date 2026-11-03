@@ -2,7 +2,7 @@
 
 from typing import Annotated
 
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints, field_validator
 
 TrimmedText = Annotated[str, StringConstraints(strip_whitespace=True)]
 NonEmptyText = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
@@ -37,6 +37,14 @@ class GeneratedCopy(StrictModel):
     search_queries: list[NonEmptyText] = Field(min_length=3, max_length=5)
     commercial_block: NonEmptyText
 
+    @field_validator("search_queries")
+    @classmethod
+    def require_unique_search_queries(cls, queries: list[str]) -> list[str]:
+        normalized = [query.casefold() for query in queries]
+        if len(normalized) != len(set(normalized)):
+            raise ValueError("поисковые запросы не должны повторяться")
+        return queries
+
 
 class Characteristic(StrictModel):
     """A technical characteristic copied from source input."""
@@ -53,4 +61,3 @@ class ProductCard(GeneratedCopy):
     characteristics: list[Characteristic] = Field(min_length=1)
     missing_fields: list[str] = Field(default_factory=list)
     source_url: HttpUrl | None = None
-

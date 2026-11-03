@@ -44,4 +44,3 @@ def test_render_markdown_contains_copy_ready_sections_and_missing_fields():
     assert "### Commercial-блок" in rendered
     assert "Описание или фрагмент паспорта" in rendered
     assert "https://www.souz-pribor.ru/product/pm01-24-av/" in rendered
-
